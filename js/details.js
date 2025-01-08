@@ -117,15 +117,26 @@ async function fetchCategoryDetails(category) {
         console.error("Error fetching category details:", error);
     }
 }
-async function fetchAreaDetails(Area) {
+
+async function fetchAreaDetails(area) {
+    if (!area) {
+        console.error("No area specified.");
+        return;
+    }
+
     try {
-        let response = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?a=${Area}`);
+        let response = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?a=${area}`);
         let res = await response.json();
-        console.log("Category Details Response:", res);
-        // Process and display the category details
-        displayAreaDetails(res.meals);
+        console.log("Area Details Response:", res);
+
+        if (res.meals) {
+            displayAreaDetails(res.meals);
+        } else {
+            document.getElementById('det').innerHTML = '<p>No meals found for this area.</p>';
+        }
     } catch (error) {
-        console.error("Error fetching category details:", error);
+        console.error("Error fetching area details:", error);
+        document.getElementById('det').innerHTML = '<p>Error fetching area details.</p>';
     }
 }
 
@@ -152,31 +163,33 @@ function displayCategoryDetails(meals) {
     }
     document.getElementById('det').innerHTML = box;
 } 
-function displayAreaDetails(Area) {
-    let box4= ``;
-    if (Area) {
-        for (let i = 0; i < Area.length; i++) {
-            box4 += `
+
+function displayAreaDetails(area) {
+    let box = '';
+    if (Array.isArray(area) && area.length > 0) {
+        for (let i = 0; i < area.length; i++) {
+            box += `
             <div class="col-md-3">
-                <div id="item"  class="item m-2"> 
-                <a href="details.html?id=${Area[i].idMeal}" class="image-link">
-                    <img class="w-100" src="${Area[i].strMealThumb}" alt="" id="imagge">
-                   
+                <div class="item m-2"> 
+                <a href="details.html?id=${area[i].idMeal}" class="image-link">
+                    <img class="w-100" src="${area[i].strMealThumb}" alt="">
                     <div class="item-caption text-black">
-                        <h3>${Area[i].strMeal}</h3>
+                        <h3>${area[i].strMeal}</h3>
                     </div>
-                      </a>
+                </a>
                 </div>
-            </div>  
-            `;
+            </div>`;
         }
     } else {
-        box4= `<p>No meals found for this category.</p>`;
+        box = `<p>No meals found for this area.</p>`;
     }
-    document.getElementById('det').innerHTML = box4;
+    document.getElementById('det').innerHTML = box;
 } 
+
 const urlParamss = new URLSearchParams(window.location.search);
-const area = urlParamss.get('area'); 
+const area = urlParamss.get('area');
+console.log("Area from URL:", area);
+fetchAreaDetails(area);
 
 const ingredient = urlParams.get('ingredient');
 
