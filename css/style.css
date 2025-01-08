@@ -58,6 +58,7 @@ display: none;
 .nav-tab{
     transition: display 0.4s;
 }
+
 .loader {
     color: #fff;
     font-size: 10px;

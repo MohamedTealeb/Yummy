@@ -59,3 +59,4 @@ document.getElementById('SearchIteam').innerHTML=box2
                $('body').css('overflow','auto')
             })
          })
+         new WOW().init();

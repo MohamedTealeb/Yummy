@@ -21,7 +21,7 @@ async function demo(){
    
    let data =await fetch('https://www.themealdb.com/api/json/v1/1/list.php?a=list')
    let res=await data.json()
-   allpost=res.meals
+   allpost=res.meals||[]
    console.log(allpost)
    display()
 }
@@ -32,7 +32,8 @@ let box=``
 for(let i=0;i<allpost.length;i++){
    box+=`
    <div class="col-md-3 text-white  mb-4">
-    <div class="rounded-2 text-center cursor-pointer">
+  
+    <div class="rounded-2 text-center cursor-pointer"  onclick="openArea('${allpost[i].strArea}')">
         <i class="fa-solid fa-house-laptop fa-4x"></i>
         <h3>${allpost[i].strArea}</h3>
     </div>
@@ -46,3 +47,8 @@ $(window).on('load',function(){
       $('body').css('overflow','auto')
    })
 })
+function openArea(area) {
+    
+   window.location.href = `details.html?area=${encodeURIComponent(area)}`;
+}
+new WOW().init();

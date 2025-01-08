@@ -32,7 +32,7 @@ let box=``
 for(let i=0;i<allpost.length;i++){
    box+=`
    <div class="col-md-3 text-white mb-4">
-    <div class="rounded-2 text-center cursor-pointer">
+    <div class="rounded-2 text-center cursor-pointer" onclick="openIngredient('${allpost[i].strIngredient}')">
         <i class="fa-solid fa-drumstick-bite fa-4x"></i>
         <h3>${allpost[i].strIngredient}</h3>
     </div>
@@ -46,3 +46,8 @@ $(window).on('load',function(){
       $('body').css('overflow','auto')
    })
 })
+function openIngredient(ingredient) {
+    
+   window.location.href = `details.html?ingredient=${encodeURIComponent(ingredient)}`;
+}
+new WOW().init();

@@ -10,18 +10,16 @@
       $('#Close').addClass('fa-solid open-close-icon fa-align-justify fa-2x')
       
          $('.sidbar').animate({ left: "-256px" }, 1000)
+        
       } else {
          $('.sidbar').animate({ left: "0px" }, 1000)
          $('#Close').addClass('open-close-icon fa-2x fa-x')
-      
+         $('.nav-tab').toggleClass('open');
+         new WOW().init(); 
       }
 
    })
-
-
  
- 
-
 let allpost=[]
 async function demo(){
    
@@ -35,7 +33,7 @@ demo()
 
 function display(){
 let box=``
-for(let i=0;i<allpost.length;i++){
+for(let i=0; i < allpost.length; i++){
    box+=`
        <div class="col-md-3">
                 <div id="item"  class="item m-2"> 
@@ -58,17 +56,4 @@ $(window).on('load',function(){
    })
 })
 
-
-// async function fetchDetails(id) {
-//     let data = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
-    
-//     let res = await data.json();
-   
-//     const meal = res.meals[0];
-   
-//     document.getElementById('po').innerText = meal.strMeal;
-//     document.getElementById('mealImage').src = meal.strMealThumb;
-
-// }
-
-// fetchDetails();
+new WOW().init();

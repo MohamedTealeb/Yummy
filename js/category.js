@@ -32,9 +32,10 @@ let box3=``
 for(let i=0;i<cate.length;i++){
    box3+=`
        <div class="col-md-3">
-                <div class="item m-2">
+                <div class="item m-2"onclick="openCategory('${cate[i].strCategory}')">
+               
                     <img class="w-100" src="${cate[i].strCategoryThumb}" alt="">
-                    <div class="item-caption">
+                    <div class="item-caption ">
                         <h3>${cate[i].strCategory}</h3>
                     </div>
                 </div>
@@ -47,3 +48,9 @@ $(window).on('load',function(){
        $('body').css('overflow','auto')
     })
  })
+
+function openCategory(category) {
+    
+    window.location.href = `details.html?category=${encodeURIComponent(category)}`;
+}
+new WOW().init();
